@@ -1,7 +1,10 @@
 package xrpl
 
 import (
+	"crypto/ed25519"
+	"encoding/hex"
 	"encoding/json"
+	"fmt"
 
 	"github.com/gorilla/websocket"
 )
@@ -76,4 +79,33 @@ func (c *Client) Request(req BaseRequest) (BaseResponse, error) {
 
 	res := <-ch
 	return res, nil
+}
+
+func (c *Client) SignAndSubmitRequest(req BaseRequest, privateKey []byte) (BaseResponse, error) {
+	txJSON, ok := req["tx_json"].(map[string]interface{})
+	if !ok {
+		return nil, fmt.Errorf("tx_json field missing or invalid in request")
+	}
+
+	pubKey := ed25519.PrivateKey(privateKey).Public()
+	txJSON["SigningPubKey"] = hex.EncodeToString(pubKey.(ed25519.PublicKey))
+
+	message, err := json.Marshal(txJSON)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal transaction for signing: %w", err)
+	}
+
+	signature, err := c.sign(string(message), hex.EncodeToString(privateKey))
+	if err != nil {
+		return nil, fmt.Errorf("failed to sign transaction: %w", err)
+	}
+
+	txJSON["TxnSignature"] = signature
+
+	submitReq := BaseRequest{
+		"command": "submit",
+		"tx_json": txJSON,
+	}
+
+	return c.Request(submitReq)
 }
