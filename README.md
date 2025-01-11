@@ -1,5 +1,5 @@
 # xrpl-go: A Go client for the XRP Ledger
-[![Go Report Card](https://goreportcard.com/badge/github.com/xrpscan/xrpl-go)](https://goreportcard.com/report/github.com/xrpscan/xrpl-go) [![GoDoc](https://pkg.go.dev/badge/github.com/xrpscan/xrpl-go?status.svg)](https://pkg.go.dev/github.com/xrpscan/xrpl-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/andreimerlescu/xrpl-go)](https://goreportcard.com/report/github.com/andreimerlescu/xrpl-go) [![GoDoc](https://pkg.go.dev/badge/github.com/andreimerlescu/xrpl-go?status.svg)](https://pkg.go.dev/github.com/andreimerlescu/xrpl-go)
 
 ## Motivation
 
@@ -12,7 +12,7 @@ library aims to mirror concepts of the official JavaScript/TypeScript library
 
 ## Reference documentation
 
-See the [full reference documentation](https://pkg.go.dev/github.com/xrpscan/xrpl-go) 
+See the [full reference documentation](https://pkg.go.dev/github.com/andreimerlescu/xrpl-go) 
 for all packages, functions and constants.
 
 ## Features
@@ -30,7 +30,7 @@ may not be available on day 0.
 ## Installation
 
 ```bash
-go get -u github.com/xrpscan/xrpl-go
+go get -u github.com/andreimerlescu/xrpl-go
 ```
 
 ## Getting started
@@ -104,3 +104,9 @@ and we'll do our best to address it.
 - [XRPL HTTP/WebSocket API methods](https://xrpl.org/public-api-methods.html)
 - [XRPL WebSocket streams](https://xrpl.org/subscribe.html)
 - [JavaScript/TypeScript library for interacting with the XRP Ledger](https://js.xrpl.org)
+
+## Fork
+
+This fork will receive continued development throughout 2025 as the $APARIO token is built out for the [PhoenixVault](https://github.com/andreimerlescu/phoenixvault). We will keep the LICENSE as-is. Please feel free to continue to this repository. I plan on maintaining upstream but keeping a separate fork that depends on this repository rather than the upstream.
+
+Thank you to the hard work done to the project thus far. I hope I am able to make solid contributions to it for others to find strong value in leveraging the XRP Ledger for their Go applications!

@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/gorilla/websocket"
 )
@@ -79,6 +80,16 @@ func (c *Client) Request(req BaseRequest) (BaseResponse, error) {
 
 	res := <-ch
 	return res, nil
+}
+
+func (c *Client) sign(msg, privKey string) (string, error) {
+	b, err := hex.DecodeString(privKey)
+	if err != nil {
+		return "", err
+	}
+	rawPriv := ed25519.NewKeyFromSeed(b[1:])
+	signedMsg := ed25519.Sign(rawPriv, []byte(msg))
+	return strings.ToUpper(hex.EncodeToString(signedMsg)), nil
 }
 
 func (c *Client) SignAndSubmitRequest(req BaseRequest, privateKey []byte) (BaseResponse, error) {
